@@ -11,7 +11,7 @@ export default function App() {
         <div>
           <Routes>
             <Route path="/" element="" />
-            <Route path="/Perfomances" element="" />
+            <Route path="/perfomances" element="" />
   
           </Routes>
         </div>
