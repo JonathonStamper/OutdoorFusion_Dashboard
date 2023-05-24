@@ -4,11 +4,17 @@ import BarChart from './chartComponent';
 
 const _titles = []
 const _values = []
+const _profit = []
+const _quantity = []
+const _unitPrice = []
 
 const App = (props) => {
     const [state, setState] = useState()
     const [titles, setTitles] = useState([])
     const [values, setValues] = useState([])
+    const [profit, setProfit] = useState([])
+    const [quantity, setQuantity] = useState([])
+    const [unitPrice, setUnitPrice] = useState([])
 
     useEffect(() => {
         setState(props)
@@ -19,11 +25,16 @@ const App = (props) => {
             for (const product of products) {
                 console.log(product)
                 _titles.push(product.ProductName)
-                _values.push(product.Profit)
+                _profit.push(product.Profit)
+                _quantity.push(product.Quantity)
+                _unitPrice.push(product.UnitPrice)
             }
 
             setTitles(_titles)
-            setValues(_values)
+            setValues(_profit)
+            setProfit(_profit)
+            setQuantity(_quantity)
+            setUnitPrice(_unitPrice)
         }
     }, [state]);
 
@@ -46,13 +57,21 @@ const App = (props) => {
     //       });
     // }
 
+    const handleButtonClick = () => {
+        console.log("hello world")
+        //sets the value state with orderQty data, re-renders the chart with the orderQty data.
+        console.log(quantity)
+        setValues(quantity)
+    }
+
     return (
         <div>
             <h1>Vertical Bar Chart</h1>
             <div style={{width: '100%', height: '800px', overflowX: 'auto'}}>
                 <div style={{width: '1600px', height: '100%'}}>
-                    <BarChart data={chartData}/>
+                    <BarChart data={chartData} title="value" />
                 </div>
+                <button onClick={handleButtonClick}>Show Component</button>
             </div>
         </div>
     );

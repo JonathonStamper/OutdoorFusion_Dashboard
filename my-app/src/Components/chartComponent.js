@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Chart } from 'chart.js/auto';
 
-const BarChart = ({ data }) => {
+const BarChart = ({ data, title }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
@@ -17,7 +17,7 @@ const BarChart = ({ data }) => {
         labels: data.labels,
         datasets: [
           {
-            label: 'Profit',
+            label: title,
             data: data.values,
             backgroundColor: 'rgba(75, 192, 192, 0.6)',
             borderColor: 'rgba(75, 192, 192, 1)',
@@ -34,7 +34,7 @@ const BarChart = ({ data }) => {
       },
     });
   }, [data]);
-//
+
   return <canvas ref={chartRef} />;
 };
 
