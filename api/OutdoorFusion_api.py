@@ -14,14 +14,13 @@ CORS(app)
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:5000/api/OutdoorFusion/all"}})
 
 ## DB-Connection
+
 server = 'DESKTOP-DPIU7E0\SQLEXPRESS01'
 database = 'OutdoorFusion'
 
-# Create the connection string
-connection_string = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;TrustServerCertificate=yes;'
 
 # Connect to the database
-conn = pyodbc.connect(connection_string)
+conn = pyodbc.connect('DRIVER={SQL Server};SERVER=LAPTOP-QOE424AL\SQLEXPRESS01;DATABASE=OutdoorFusion;Trusted_Connection=yes;')
 
 # Create a DataFrame
 def getData(query):
@@ -42,7 +41,6 @@ def get_all():
     json_tables = {table: df.to_dict(orient='records') for table, df in tables.items()}
 
     return jsonify(json_tables)
-
 
 # Get Northwind products
 @app.route('/api/OutdoorFusion/northwind', methods=['GET'])
