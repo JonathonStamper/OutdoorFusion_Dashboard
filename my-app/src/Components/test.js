@@ -49,8 +49,8 @@ const App = (props) => {
     return (
         <div>
             <h1>Vertical Bar Chart</h1>
-            <div style={{width: '100%', height: '400px', overflowX: 'auto'}}>
-                <div style={{width: '1200px', height: '100%'}}>
+            <div style={{width: '100%', height: '800px', overflowX: 'auto'}}>
+                <div style={{width: '1600px', height: '100%'}}>
                     <BarChart data={chartData}/>
                 </div>
             </div>

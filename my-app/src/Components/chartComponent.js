@@ -34,7 +34,7 @@ const BarChart = ({ data }) => {
       },
     });
   }, [data]);
-
+//
   return <canvas ref={chartRef} />;
 };
 
