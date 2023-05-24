@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import requests
 import json
 import pandas as pd
@@ -6,8 +7,14 @@ import pyodbc
 
 app = Flask(__name__)
 
+# Enable CORS
+CORS(app)
+
+# Set allowed origins
+cors = CORS(app, resources={r"/*": {"origins": "http://localhost:5000/api/OutdoorFusion/all"}})
+
 ## DB-Connection
-server = 'DESKTOP-4A4UDET\SQLEXPRESS01'
+server = 'DESKTOP-DPIU7E0\SQLEXPRESS01'
 database = 'OutdoorFusion'
 
 # Create the connection string
@@ -21,21 +28,20 @@ def getData(query):
     return pd.read_sql(query, conn)
 
 
-# Get all products
+# Get all data tables
 @app.route('/api/OutdoorFusion/all', methods=['GET'])
 def get_all():
-    # Merge the DataFrames into a single DataFrame
-    merged_df = pd.concat([getData("SELECT * FROM dbo.Northwind_product"),
-        getData("SELECT * FROM dbo.AdventureWorks_product"),
-        getData("SELECT * FROM dbo.AenC_product"),
-        getData("SELECT * FROM dbo.BikeSalesProduct")],
-        ignore_index=True)
+    tables = {
+        'Northwind_product': getData("SELECT * FROM dbo.Northwind_product"),
+        'AdventureWorks_product': getData("SELECT * FROM dbo.AdventureWorks_product"),
+        'AenC_product': getData("SELECT * FROM dbo.AenC_product"),
+        'BikeSalesProduct': getData("SELECT * FROM dbo.BikeSalesProduct")
+    }
 
-    # Convert DataFrame rows to JSON format, prepare the data payload, return JSON
-    rows = merged_df.to_dict(orient='records')
-    payload = {'rows': rows}
+    # Convert each DataFrame to JSON format
+    json_tables = {table: df.to_dict(orient='records') for table, df in tables.items()}
 
-    return jsonify(payload)
+    return jsonify(json_tables)
 
 
 # Get Northwind products
@@ -44,8 +50,9 @@ def get_northwind():
     northwind_df = getData("SELECT * FROM dbo.Northwind_product")
     rows = northwind_df.to_dict(orient='records')
     payload = {'rows': rows}
+    jsonify(payload)
 
-    return jsonify(payload)
+    return payload
 
 
 # Get Adventureworks products
