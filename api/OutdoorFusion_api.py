@@ -7,14 +7,15 @@ import pyodbc
 app = Flask(__name__)
 
 ## DB-Connection
-server = 'DESKTOP-4A4UDET\SQLEXPRESS01'
-database = 'OutdoorFusion'
+# server = 'DESKTOP-4A4UDET\SQLEXPRESS01'
+# database = 'OutdoorFusion'
 
-# Create the connection string
-connection_string = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;TrustServerCertificate=yes;'
+# # Create the connection string
+# connection_string = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;TrustServerCertificate=yes;'
+
 
 # Connect to the database
-conn = pyodbc.connect(connection_string)
+conn = pyodbc.connect('DRIVER={SQL Server};SERVER=LAPTOP-QOE424AL\SQLEXPRESS01;DATABASE=OutdoorFusion;Trusted_Connection=yes;')
 
 # Create a DataFrame
 def getData(query):
@@ -24,19 +25,15 @@ def getData(query):
 # Get all products
 @app.route('/api/OutdoorFusion/all', methods=['GET'])
 def get_all():
-    # Merge the DataFrames into a single DataFrame
-    merged_df = pd.concat([getData("SELECT * FROM dbo.Northwind_product"),
-        getData("SELECT * FROM dbo.AdventureWorks_product"),
-        getData("SELECT * FROM dbo.AenC_product"),
-        getData("SELECT * FROM dbo.BikeSalesProduct")],
-        ignore_index=True)
+    # Fetch and convert each table separately
+    Northwind = getData("SELECT * FROM dbo.Northwind_product").to_dict(orient='records')
+    AdventureWorks = getData("SELECT * FROM dbo.AdventureWorks_product").to_dict(orient='records')
+    AenC = getData("SELECT * FROM dbo.AenC_product").to_dict(orient='records')
+    Bikesales = getData("SELECT * FROM dbo.BikeSalesProduct").to_dict(orient='records')
 
-    # Convert DataFrame rows to JSON format, prepare the data payload, return JSON
-    rows = merged_df.to_dict(orient='records')
-    payload = {'rows': rows}
-
+    # Prepare the data payload and return as JSON
+    payload = {'Northwind': Northwind, 'AdventureWorks': AdventureWorks, 'AenC': AenC, 'Bikesales': Bikesales}
     return jsonify(payload)
-
 
 # Get Northwind products
 @app.route('/api/OutdoorFusion/northwind', methods=['GET'])
