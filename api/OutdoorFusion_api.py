@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import requests
 import json
 import pandas as pd
@@ -6,12 +7,16 @@ import pyodbc
 
 app = Flask(__name__)
 
-## DB-Connection
-# server = 'DESKTOP-4A4UDET\SQLEXPRESS01'
-# database = 'OutdoorFusion'
+# Enable CORS
+CORS(app)
 
-# # Create the connection string
-# connection_string = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;TrustServerCertificate=yes;'
+# Set allowed origins
+cors = CORS(app, resources={r"/*": {"origins": "http://localhost:5000/api/OutdoorFusion/all"}})
+
+## DB-Connection
+
+server = 'DESKTOP-DPIU7E0\SQLEXPRESS01'
+database = 'OutdoorFusion'
 
 
 # Connect to the database
@@ -22,18 +27,20 @@ def getData(query):
     return pd.read_sql(query, conn)
 
 
-# Get all products
+# Get all data tables
 @app.route('/api/OutdoorFusion/all', methods=['GET'])
 def get_all():
-    # Fetch and convert each table separately
-    Northwind = getData("SELECT * FROM dbo.Northwind_product").to_dict(orient='records')
-    AdventureWorks = getData("SELECT * FROM dbo.AdventureWorks_product").to_dict(orient='records')
-    AenC = getData("SELECT * FROM dbo.AenC_product").to_dict(orient='records')
-    Bikesales = getData("SELECT * FROM dbo.BikeSalesProduct").to_dict(orient='records')
+    tables = {
+        'Northwind_product': getData("SELECT * FROM dbo.Northwind_product"),
+        'AdventureWorks_product': getData("SELECT * FROM dbo.AdventureWorks_product"),
+        'AenC_product': getData("SELECT * FROM dbo.AenC_product"),
+        'BikeSalesProduct': getData("SELECT * FROM dbo.BikeSalesProduct")
+    }
 
-    # Prepare the data payload and return as JSON
-    payload = {'Northwind': Northwind, 'AdventureWorks': AdventureWorks, 'AenC': AenC, 'Bikesales': Bikesales}
-    return jsonify(payload)
+    # Convert each DataFrame to JSON format
+    json_tables = {table: df.to_dict(orient='records') for table, df in tables.items()}
+
+    return jsonify(json_tables)
 
 # Get Northwind products
 @app.route('/api/OutdoorFusion/northwind', methods=['GET'])
@@ -41,8 +48,9 @@ def get_northwind():
     northwind_df = getData("SELECT * FROM dbo.Northwind_product")
     rows = northwind_df.to_dict(orient='records')
     payload = {'rows': rows}
+    jsonify(payload)
 
-    return jsonify(payload)
+    return payload
 
 
 # Get Adventureworks products
