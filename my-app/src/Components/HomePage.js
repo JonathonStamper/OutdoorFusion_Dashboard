@@ -41,7 +41,7 @@ export default function Home() {
               ))
             ) : null}
                 </ul>
-                <a href="">Analyze me</a>
+                <a href={`/Datachart/${productGroup.table}`}>Analyze me</a>
               </div>
             </div>
           ))
