@@ -4,6 +4,10 @@ import requests
 import json
 import pandas as pd
 import pyodbc
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+from sklearn.metrics import r2_score
 
 app = Flask(__name__)
 
@@ -11,8 +15,10 @@ app = Flask(__name__)
 CORS(app)
 
 # Set allowed origins
-cors = CORS(app, resources={r"/*": {"origins": "http://localhost:5000/api/OutdoorFusion/all"}})
-
+cors = CORS(app, resources={
+    r"/api/OutdoorFusion/all": {"origins": "http://localhost:5000"},
+    r"/api/OutdoorFusion/MachineLearning": {"origins": "http://localhost:5000"}
+})
 ## DB-Connection
 
 server = 'DESKTOP-DPIU7E0\SQLEXPRESS01'
@@ -82,7 +88,33 @@ def get_bikesales():
 
     return jsonify(payload)
 
+@app.route('/api/OutdoorFusion/MachineLearning', methods=['POST'])
+def perform_regression(table):
+    data = request.get_json()
+    table_name = data.get('table')
+    y_variable = data.get('y_variable')
 
+    # Fetch the data from the database based on the table_name parameter
+    Table_df = getData("SELECT * FROM dbo." +{table_name})
+
+    # Select all columns except the y_variable as X
+    x_columns = [col for col in Table_df.columns if col != y_variable]
+    X = Table_df[x_columns]  # Use all columns except the y_variable
+    y = Table_df[y_variable]  # Use the selected Y variable
+    X = pd.get_dummies(X, drop_first=True)
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Train your regression model using the training set
+    model = LinearRegression()  # Replace with the regression model of your choice
+    model.fit(X_train, y_train)
+
+    # Make predictions on the test set
+    predictions = model.predict(X_test)
+
+    score = model.score(X_test, y_test)
+    
+    return jsonify({'predictions': predictions.tolist(), 'score': score})
 
 # Run the Flask app
 if __name__ == '__main__':

@@ -8,6 +8,9 @@ export default function Chart_Diplay(props){
     const [SelectionY, setSelectionY] = useState();
     const [SelectionX, setSelectionX] = useState();
 
+    const [MLY, setMLY] = useState();
+    const [MLScore, setMLScore] = useState();
+
     const [TableData, setTableData] = useState();
     const [Columns, setColumns] = useState();
 
@@ -25,8 +28,25 @@ export default function Chart_Diplay(props){
         }))
     };
 
+    const fetchML = () =>{
+        fetch('http://localhost:5000/api/OutdoorFusion/MachineLearning',
+        {
+            method: 'POST',
+            body: JSON.stringify({ table: table, y_variable: MLY}),
+            headers: {
+                'Content-Type': 'application/json',
+              },
+            }).
+            then((response) => response.json().
+            then((data) => {
+                const score = data.score; // Access the correct key in the response JSON
+                setMLScore(score); 
+            })); 
+    };
+
     useEffect(() => {
         fetchTable();
+
     }, [])
 
     return(
@@ -39,7 +59,7 @@ export default function Chart_Diplay(props){
 
             <div>
             {/* <App></App> */}
-                <Test props={TableData}></Test>
+                <Test data={TableData} selectionX={SelectionX} selectionY={SelectionY}></Test>
             </div>
 
             <div className="columnListsContainer">
@@ -52,7 +72,7 @@ export default function Chart_Diplay(props){
                 <input type="radio" name="column_names_for_Y" value={column} onChange={() => setSelectionY(column)}/>
                 </div> 
                 ))): null}
-                <button onClick={() => 1 + 1}>Place In Y column</button>
+                <button onClick={() => 1+1}>Place In Y column</button>
                 </div>
                 
             </div>   
@@ -71,6 +91,21 @@ export default function Chart_Diplay(props){
             </div>
             </div>
 
+            </div>
+        </section>
+        <br></br>
+        <section>
+            <div className="columnListsContainer">
+            <div className="columnListContainer">
+                {Columns ? (Columns.map((column) => (
+                <div>   
+                <label htmlFor={column} key={column}>{column}</label>
+                <input type="radio" name="MLY" value={column} onChange={() => setMLY(column)}/>
+                </div> 
+                ))): null}
+                <button onClick={() => fetchML()}>Place In X column</button>
+                </div>
+            <h2>This is the score {MLScore}</h2>
             </div>
         </section>
         </>
