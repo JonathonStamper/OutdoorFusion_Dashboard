@@ -2,18 +2,19 @@ import React, {useEffect, useState} from 'react';
 import {Chart} from 'chart.js';
 import BarChart from './chartComponent';
 
-const _titles = []
-const _values = []
 
-const App = ({ data, selectionX, selectionY }) => {
+
+const App = ({data, selectionX, selectionY}) => {
     // const { data, selectionX, selectionY } = props;
     const [state, setState] = useState()
     const [titles, setTitles] = useState([])
     const [values, setValues] = useState([])
 
     useEffect(() => {
-        if(data != null) {
+        if (data != null) {
             const products = data.rows
+            const _titles = []
+            const _values = []
 
             for (const product of products) {
                 console.log(product)
@@ -37,9 +38,9 @@ const App = ({ data, selectionX, selectionY }) => {
 
     return (
         <div>
-            <h1>Vertical Bar Chart</h1>
-            <div style={{width: '100%', height: '400px', overflowX: 'auto'}}>
-                <div style={{width: '1200px', height: '100%'}}>
+            <h1>Profit per product</h1>
+            <div style={{width: '1200px', height: '600px', overflowX: 'auto'}}>
+                <div style={{width: '500%', height: '500%'}}>
                     <BarChart data={chartData}/>
                 </div>
             </div>
