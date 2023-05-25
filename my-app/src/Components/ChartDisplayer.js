@@ -28,6 +28,7 @@ export default function Chart_Diplay(props){
         fetchTable();
     }, [])
 
+
     return(
         <>
         <section>
@@ -38,7 +39,7 @@ export default function Chart_Diplay(props){
 
             <div>
             <h3>Chart placement</h3>
-                <Test props={TableData}></Test>
+                <Test data={TableData} selectionX={SelectionX} selectionY={SelectionY}></Test>
             </div>
 
             <div className="columnListsContainer">
