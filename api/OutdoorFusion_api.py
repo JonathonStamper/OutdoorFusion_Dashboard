@@ -43,7 +43,7 @@ def get_all():
     return jsonify(json_tables)
 
 # Get Northwind products
-@app.route('/api/OutdoorFusion/northwind', methods=['GET'])
+@app.route('/api/OutdoorFusion/Northwind_product', methods=['GET'])
 def get_northwind():
     northwind_df = getData("SELECT * FROM dbo.Northwind_product")
     rows = northwind_df.to_dict(orient='records')
@@ -54,7 +54,7 @@ def get_northwind():
 
 
 # Get Adventureworks products
-@app.route('/api/OutdoorFusion/adventure', methods=['GET'])
+@app.route('/api/OutdoorFusion/AdventureWorks_product', methods=['GET'])
 def get_adventure():
     adventure_df = getData("SELECT * FROM dbo.AdventureWorks_product")
     rows = adventure_df.to_dict(orient='records')
@@ -64,7 +64,7 @@ def get_adventure():
 
 
 # Get AenC products
-@app.route('/api/OutdoorFusion/aenc', methods=['GET'])
+@app.route('/api/OutdoorFusion/AenC_product', methods=['GET'])
 def get_aenc():
     aenc_df = getData("SELECT * FROM dbo.AenC_product")
     rows = aenc_df.to_dict(orient='records')
@@ -74,7 +74,7 @@ def get_aenc():
 
 
 # Get bike sales
-@app.route('/api/OutdoorFusion/bikesales', methods=['GET'])
+@app.route('/api/OutdoorFusion/BikeSalesProduct', methods=['GET'])
 def get_bikesales():
     bikesales_df = getData("SELECT * FROM dbo.BikeSalesProduct")
     rows = bikesales_df.to_dict(orient='records')
