@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
+import './ChartDisplayer.css';
 
 export default function Chart_Diplay(props){
-    const [Selection, setSelection] = useState();
-    const [Table, setTable] = useState();
+    const [SelectionY, setSelectionY] = useState();
+    const [SelectionX, setSelectionX] = useState();
+
+    const [TableData, setTableData] = useState();
+    const [Columns, setColumns] = useState();
 
     const{table} = useParams();
 
@@ -11,7 +15,11 @@ export default function Chart_Diplay(props){
         fetch(`http://localhost:5000/api/OutdoorFusion/${table}`)
         .then((response) => response.json()
         .then((data) => {
-            setTable(data)
+            if (data.rows && data.rows.length > 0) {
+                const columns = Object.keys(data.rows[0]);
+                setColumns(columns);
+              }
+              setTableData(data);
         }))
     };
 
@@ -23,14 +31,43 @@ export default function Chart_Diplay(props){
         <>
         <section>
             <div>
-                <h2>{table}</h2>
-            
+                <h2>These charts are based on this table: {table}</h2>
             </div>
-            <div>
+            <div className="Chart_Display">
 
-                <label>
+            <div>
+            <h3>Chart placement</h3>
+            </div>
+
+            <div className="columnListsContainer">
+            <div>
+                <h3>Y-as selection</h3>
+                <div className="columnListContainer">   
+                {Columns ? (Columns.map((column) => (
+                <div >   
+                <label htmlFor={column} key={column}>{column}</label>
+                <input type="radio" name="column_name" value={column} onChange={() => setSelectionY(column)}/>
+                </div> 
+                ))): null}
+                <button onClick={() => 1 + 1}>Place In Y column</button>
+                </div>
                 
-                </label>
+            </div>   
+
+             <div>
+                <h3>X-as selection</h3>
+                <div className="columnListContainer">
+                {Columns ? (Columns.map((column) => (
+                <div>   
+                <label htmlFor={column} key={column}>{column}</label>
+                <input type="radio" name="column_name" value={column} onChange={() => setSelectionX(column)}/>
+                </div> 
+                ))): null}
+                <button onClick={() => 1 + 1}>Place In X column</button>
+                </div>
+            </div>
+            </div>
+
             </div>
         </section>
         </>
