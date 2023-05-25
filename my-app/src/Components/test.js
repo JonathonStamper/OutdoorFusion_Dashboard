@@ -11,10 +11,8 @@ const App = (props) => {
     const [values, setValues] = useState([])
 
     useEffect(() => {
-        setState(props)
-        if (state != null) {
-            console.log(state.props.Northwind_product)
-            const products = state.props.Northwind_product
+        if(props.props != null) {
+            const products = props.props.rows
 
             for (const product of products) {
                 console.log(product)
@@ -25,7 +23,7 @@ const App = (props) => {
             setTitles(_titles)
             setValues(_values)
         }
-    }, [state]);
+    }, [props]);
 
 
     const chartData = {
@@ -35,16 +33,6 @@ const App = (props) => {
         values: values,
     };
 
-    // const fetchProduct_Groups = () => {
-    //       fetch(`/api/OutdoorFusion/northwind`).
-    //       then((response) => response.json()).
-    //       then((data) =>
-    //       {
-    //         setEvenement(data);
-    //         console.log(data);
-    //
-    //       });
-    // }
 
     return (
         <div>
