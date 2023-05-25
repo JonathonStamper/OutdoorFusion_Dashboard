@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import './ChartDisplayer.css';
+import App from "./test";
 
 export default function Chart_Diplay(props){
     const [SelectionY, setSelectionY] = useState();
@@ -36,7 +37,7 @@ export default function Chart_Diplay(props){
             <div className="Chart_Display">
 
             <div>
-            <h3>Chart placement</h3>
+            {/* <App></App> */}
             </div>
 
             <div className="columnListsContainer">
