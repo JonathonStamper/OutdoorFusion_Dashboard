@@ -22,7 +22,6 @@ const Sidebar = () => {
           QUICK MENU
         </h3>
         <ul className="menuLists grid">
-
           <li className="listItem">
             <a href="#" className="menuLink flex">
               <FaTshirt className='icon'/>
