@@ -38,3 +38,20 @@ h3{
     color: white;
     font-weight: 500;
 }
+
+.columnMLsContainer{
+    display: flex;
+    max-width: 500px;
+    justify-content: center;
+    align-items: center; 
+    background-color: rgb(111, 107, 185);
+    border-radius: 5px;
+}
+
+.columnMLContainer{
+    text-decoration: none;
+    padding:4px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+}

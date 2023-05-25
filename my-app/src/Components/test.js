@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {Chart} from 'chart.js';
 import BarChart from './chartComponent';
 
+
+
 const App = ({data, selectionX, selectionY}) => {
     // const { data, selectionX, selectionY } = props;
     const [state, setState] = useState()
