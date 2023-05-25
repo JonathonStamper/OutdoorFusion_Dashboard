@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react"
-import './Home.css'
+import { useState, useEffect } from "react";
+import './Home.css';
+import {IoMdShirt} from 'react-icons/io';
 
 export default function Home() {
   const [Product_Groups, setProductGroups] = useState([]);
@@ -47,6 +48,8 @@ export default function Home() {
           ))
         ) : null}
       </div>
+
+      {/* <div><IoMdShirt/></div> */}
     </>
   );
 }
