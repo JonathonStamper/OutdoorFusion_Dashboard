@@ -28,21 +28,23 @@ export default function Chart_Diplay(props){
         }))
     };
 
-    const fetchML = () =>{
-        fetch('http://localhost:5000/api/OutdoorFusion/MachineLearning',
-        {
-            method: 'POST',
-            body: JSON.stringify({ table: table, y_variable: MLY}),
-            headers: {
-                'Content-Type': 'application/json',
-              },
-            }).
-            then((response) => response.json().
-            then((data) => {
-                const score = data.score; // Access the correct key in the response JSON
-                setMLScore(score); 
-            })); 
-    };
+    const fetchML = () => {
+        fetch(`http://localhost:5000/api/OutdoorFusion/MachineLearning`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ table: table, y_variable: MLY }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const score = data.score;
+            setMLScore(score);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      };
 
     useEffect(() => {
         fetchTable();
@@ -94,9 +96,10 @@ export default function Chart_Diplay(props){
             </div>
         </section>
         <br></br>
+        
         <section>
-            <div className="columnListsContainer">
-            <div className="columnListContainer">
+            <div className="columnMLsContainer">
+            <div className="columnMLContainer">
                 {Columns ? (Columns.map((column) => (
                 <div>   
                 <label htmlFor={column} key={column}>{column}</label>
