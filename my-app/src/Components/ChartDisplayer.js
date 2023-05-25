@@ -19,7 +19,7 @@ export default function Chart_Diplay(props){
                 const columns = Object.keys(data.rows[0]);
                 setColumns(columns);
               }
-              setTableData(data);
+                setTableData(data);
         }))
     };
 
