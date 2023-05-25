@@ -1,21 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-import NavBar from './Nav';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React from 'react'
+import './app.css'
+import Sidebar from './Components/Sidebar Section/Sidebar'
+import Body from './Components/Body Section/Body'
 
-export default function App() {
+const App = () => {
   return (
-    <Router>
-      <>
-        <NavBar></NavBar>
-        <div>
-          <Routes>
-            <Route path="/" element="" />
-            <Route path="/Perfomances" element="" />
-  
-          </Routes>
-        </div>
-      </>
-    </Router>
-  );
+    <div className='container'>
+      <Sidebar/>
+      <Body/>
+    </div>
+
+
+  )
 }
+
+export default App
