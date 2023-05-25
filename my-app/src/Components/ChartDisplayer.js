@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
+import Test from './test'
 import './ChartDisplayer.css';
 import App from "./test";
 
@@ -38,6 +39,7 @@ export default function Chart_Diplay(props){
 
             <div>
             {/* <App></App> */}
+                <Test props={TableData}></Test>
             </div>
 
             <div className="columnListsContainer">
