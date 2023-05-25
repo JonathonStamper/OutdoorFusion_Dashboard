@@ -46,7 +46,7 @@ export default function Chart_Diplay(props){
                 {Columns ? (Columns.map((column) => (
                 <div >   
                 <label htmlFor={column} key={column}>{column}</label>
-                <input type="radio" name="column_name" value={column} onChange={() => setSelectionY(column)}/>
+                <input type="radio" name="column_names_for_Y" value={column} onChange={() => setSelectionY(column)}/>
                 </div> 
                 ))): null}
                 <button onClick={() => 1 + 1}>Place In Y column</button>
@@ -60,7 +60,7 @@ export default function Chart_Diplay(props){
                 {Columns ? (Columns.map((column) => (
                 <div>   
                 <label htmlFor={column} key={column}>{column}</label>
-                <input type="radio" name="column_name" value={column} onChange={() => setSelectionX(column)}/>
+                <input type="radio" name="column_names_for_X" value={column} onChange={() => setSelectionX(column)}/>
                 </div> 
                 ))): null}
                 <button onClick={() => 1 + 1}>Place In X column</button>
