@@ -13,11 +13,11 @@ const Sidebar = () => {
     <div className="sideBar grid">
       <div className="logoDiv flex">
         <img src={Logos} alt="Image" />
-        <h2>ScrapeFusion &trade;</h2>
+        <h2>ScrapedFusion &trade;</h2>
       </div>
 
       <div className="menuDiv">
-        <h3 className="divTitle">QUICK MENU</h3>
+        <h3 className="divTitle">MENU</h3>
         <ul className="menuLists grid">
           <li className="listItem">
             <a href="#" className="menuLink">
@@ -46,12 +46,15 @@ const Sidebar = () => {
       <div className="sideBarCard">
         <BsQuestionLg className="icon"/>
         <div className="cardContent">
-          <img src="https://i.pinimg.com/originals/86/d7/5a/86d75a902dda5a4c6ac4b95d8a5afba4.gif" alt="img" />
+
           <div className="circle1"></div>
+
+          <img src="https://i.pinimg.com/originals/86/d7/5a/86d75a902dda5a4c6ac4b95d8a5afba4.gif" alt="img" />
+          
           <div className="circle2"></div>
 
           <h3>Help center</h3>
-          <p>Having trouble using scrapedoorfusion? Let us know!</p>
+          <p>Having trouble using ScrapeFusion? Let us know!</p>
           <button className="btn">Help</button>
         </div>
       </div>

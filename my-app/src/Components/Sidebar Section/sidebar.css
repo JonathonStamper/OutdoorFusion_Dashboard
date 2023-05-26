@@ -7,8 +7,8 @@
   --text-color: white;
   --bgColor: rgb(255, 255, 255);
   --greyText: rgb(197, 197, 197);
-  --input-color: rgb(36, 36, 36);
-  --colorText: rgb(63, 63, 63);
+  --input-color: rgb(241, 241, 241);
+  --colorText: rgb(53, 53, 53);
   --niceGreen: rgb(74, 184, 74);
   --biggestFintSize: 2.5rem;
   --h1FontSize: 1.5rem;
@@ -22,7 +22,7 @@
 
 .sideBar {
   background: var(--input-color);
-  box-shadow: 1px 0px 4px var(--greyText);
+  box-shadow: 5px 0px 5px rgb(200, 200, 200);
   max-width: 18%;
   height: 100%;
   gap: 3rem;
@@ -80,7 +80,7 @@
 }
 
 .menuLink{
-  color: var(--colorText);
+  color: rgb(184, 184, 184);
   font-weight: 500;
   .icon{
     margin-right: .5rem;
@@ -110,7 +110,7 @@
     border: 10px solid var(--input-color);
     font-size: 3rem;
     border-radius: 50%;
-    top: 3px;
+    top: -4px;
     right: 50%;
     transform: translate(50%);
     z-index: 100;
@@ -124,7 +124,7 @@
     background: rgb(255, 255, 255);
     border-radius: 10px;
     overflow: hidden;
-    top: 20px;
+    top: 12px;
   }
 
   .sideBar h3{
@@ -142,11 +142,16 @@
     font-weight: 500;
   }
 
-  .sideBar .btn{
+  .btn{
     position: relative;
     color: var(--light-green);
-    z-index: 1000;
+    font-weight: 600;
+    border-style: none;
+  }
 
+  &:hover .btn{
+    color: white;
+    background-color: var(--light-green);
   }
 
   .cardContent img{
@@ -165,8 +170,8 @@
   }
 
   .cardContent .circle1{
-    height:100px;
-    width: 100px;
+    height:110px;
+    width: 110px;
     top: -50px;
     left: -50px;
   }
@@ -177,5 +182,6 @@
     bottom: -80px;
     right: -70px;
   }
+  
   
  

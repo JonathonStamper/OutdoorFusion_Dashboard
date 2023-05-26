@@ -1,16 +1,11 @@
 /*# sourceMappingURL=top.css.map */
 .imageTop{ 
     display: flex;
-    box-shadow: 0px 5px 5px gray;
+    box-shadow: 0px 5px 5px rgb(200, 200, 200);
     max-width: 100%;
     max-height: 100%;
     object-fit: cover;
    
-    
-    
-    
-
-  
 }
 
 .containerImageTop{
@@ -21,3 +16,7 @@ top:0;
 left:0;
 
 }
+
+/* ::-webkit-scrollbar{
+  display: none;
+} */
