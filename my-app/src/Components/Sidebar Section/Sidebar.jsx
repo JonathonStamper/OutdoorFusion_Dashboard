@@ -1,19 +1,19 @@
 import React from "react";
 import "./sidebar.css";
 
-import dashboardIcon from "../../Assets/dashboardIcon.png";
+import Logos from "../../Assets/Logos.png";
 import { FaTshirt } from "react-icons/fa";
 import { AiFillPhone } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import { AiFillHome } from "react-icons/ai";
-import { AiOutlineQuestionCircle } from "react-icons/ai";
+import { BsQuestionLg } from "react-icons/bs";
 
 const Sidebar = () => {
   return (
     <div className="sideBar grid">
       <div className="logoDiv flex">
-        <img src={dashboardIcon} alt="Image" />
-        <h2>ScrapeDoorFusion &trade;</h2>
+        <img src={Logos} alt="Image" />
+        <h2>ScrapeFusion &trade;</h2>
       </div>
 
       <div className="menuDiv">
@@ -40,20 +40,15 @@ const Sidebar = () => {
             </a>
           </li>
 
-          <li className="listItem">
-            <a href="#" className="menuLink">
-              <AiFillHome className="icon" />
-              <span className="smallText">Home</span>
-            </a>
-          </li>
         </ul>
       </div>
 
       <div className="sideBarCard">
-        <AiOutlineQuestionCircle />
+        <BsQuestionLg className="icon"/>
         <div className="cardContent">
+          <img src="https://i.pinimg.com/originals/86/d7/5a/86d75a902dda5a4c6ac4b95d8a5afba4.gif" alt="img" />
           <div className="circle1"></div>
-          <div className="circle1"></div>
+          <div className="circle2"></div>
 
           <h3>Help center</h3>
           <p>Having trouble using scrapedoorfusion? Let us know!</p>
