@@ -41,7 +41,7 @@ h3{
 
 .columnMLsContainer{
     display: flex;
-    max-width: 500px;
+    width: 700px;
     justify-content: center;
     align-items: center; 
     background-color: rgb(111, 107, 185);

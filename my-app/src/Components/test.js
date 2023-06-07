@@ -38,7 +38,7 @@ const App = ({data, selectionX, selectionY}) => {
 
     return (
         <div>
-            <h1>Profit per product</h1>
+            <h1>{selectionX} per {selectionY}</h1>
             <div style={{width: '1200px', height: '600px', overflowX: 'auto'}}>
                 <div style={{width: '500%', height: '500%'}}>
                     <BarChart data={chartData}/>

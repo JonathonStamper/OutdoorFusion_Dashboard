@@ -19,6 +19,15 @@ app = Flask(__name__)
 CORS(app)
 
 # Get all data tables
+@app.route('/api/OutdoorFusion_Type/ALL', methods=['GET'])
+def get_all_types():
+    AllTypes = getData('select Distinct Product_Type from OutdoorFusion_Customers')
+    rows = AllTypes.to_dict(orient='records')
+    payload = {'rows': rows}
+
+    return jsonify(payload)
+
+
 @app.route('/api/OutdoorFusion/all', methods=['GET'])
 def get_all():
     tables = {
