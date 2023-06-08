@@ -21,11 +21,32 @@ CORS(app)
 # Get all data tables
 @app.route('/api/OutdoorFusion_Type/ALL', methods=['GET'])
 def get_all_types():
-    AllTypes = getData('select Distinct Product_Type from OutdoorFusion_Customers')
+    AllTypes = getData('select Distinct Product_Type from Fusion_Product')
     rows = AllTypes.to_dict(orient='records')
     payload = {'rows': rows}
 
     return jsonify(payload)
+
+@app.route('/api/OutdoorFusion_Product/Data', methods=["GET"])
+def get_type_data():
+    type_name = request.args.get('type')
+    Product_Type_Data = getData("select * from Fusion_Product where Product_Type like '" +type_name+ "'")
+
+    rows = Product_Type_Data.to_dict(orient='records')
+    payload = {'rows': rows}
+
+    return jsonify(payload)
+
+@app.route('/api/OutdoorFusion_Product_Year/Data', methods=["GET"])
+def get_type_data():
+    type_name = request.args.get('type')
+    Product_Type_Data = getData("select * from Fusion_Product_Year where Product_Type like '" +type_name+ "'")
+
+    rows = Product_Type_Data.to_dict(orient='records')
+    payload = {'rows': rows}
+
+    return jsonify(payload)
+
 
 
 @app.route('/api/OutdoorFusion/all', methods=['GET'])

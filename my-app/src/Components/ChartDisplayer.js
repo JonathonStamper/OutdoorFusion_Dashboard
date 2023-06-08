@@ -13,41 +13,77 @@ export default function Chart_Diplay(props){
     const [TableData, setTableData] = useState();
     const [Columns, setColumns] = useState();
 
-    const{table} = useParams();
+    // const{table} = useParams();
+    const{type} = useParams();
 
-    const fetchTable = () =>{
-        fetch(`http://localhost:5000/api/OutdoorFusion/${table}`)
-        .then((response) => response.json()
-        .then((data) => {
+    // const fetchTable = () =>{
+    //     fetch(`http://localhost:5000/api/OutdoorFusion/${table}`)
+    //     .then((response) => response.json()
+    //     .then((data) => {
+    //         if (data.rows && data.rows.length > 0) {
+    //             const columns = Object.keys(data.rows[0]);
+    //             setColumns(columns);
+    //           }
+    //             setTableData(data);
+    //     }))
+    // };
+
+    const fetchTypeColumns = () =>{
+        fetch(`http://localhost:5000/api/OutdoorFusion_Product/Data?type=${type}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).
+          then((response) => response.json().
+          then((data) => {
             if (data.rows && data.rows.length > 0) {
                 const columns = Object.keys(data.rows[0]);
                 setColumns(columns);
               }
                 setTableData(data);
-        }))
-    };
+          }))
+    }
 
-    const fetchML = () => {
-        fetch(`http://localhost:5000/api/OutdoorFusion/MachineLearning`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ table: table, y_variable: MLY }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            const score = data.score;
-            setMLScore(score);
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-      };
+
+    const fetchType_YearColumns = () =>{
+        fetch(`http://localhost:5000//api/OutdoorFusion_Product_Year/Data?type=${type}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).
+          then((response) => response.json().
+          then((data) => {
+            if (data.rows && data.rows.length > 0) {
+                const columns = Object.keys(data.rows[0]);
+                setColumns(columns);
+              }
+                setTableData(data);
+          }))
+    }
+
+    // const fetchML = () => {
+    //     fetch(`http://localhost:5000/api/OutdoorFusion/MachineLearning`, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({ table: table, y_variable: MLY }),
+    //     })
+    //       .then((response) => response.json())
+    //       .then((data) => {
+    //         const score = data.score;
+    //         setMLScore(score);
+    //       })
+    //       .catch((error) => {
+    //         console.error('Error:', error);
+    //       });
+    //   };
 
     useEffect(() => {
-        fetchTable();
-
+        // fetchTable();
+        fetchTypeColumns();
     }, [])
 
 
@@ -55,8 +91,14 @@ export default function Chart_Diplay(props){
         <>
         <section>
             <div>
-                <h2>These charts are based on this table: {table}</h2>
+                <h2>These charts are based on this type: {type}</h2>
             </div>
+            <div id="ButtonList">
+                <button onClick={() => fetchTypeColumns()}>Product</button>
+                <button onClick={() => fetchType_YearColumns()}>Year</button>
+                <button onClick={() => 1 + 1}>Country</button>
+            </div>
+
             <div className="Chart_Display">
 
             <div>
@@ -107,7 +149,7 @@ export default function Chart_Diplay(props){
                 <input type="radio" name="MLY" value={column} onChange={() => setMLY(column)}/>
                 </div> 
                 ))): null}
-                <button onClick={() => fetchML()}>Place In X column</button>
+                {/* <button onClick={() => fetchML()}>Place In X column</button> */}
                 </div>
             <h2>This is the score {MLScore}</h2>
             </div>
