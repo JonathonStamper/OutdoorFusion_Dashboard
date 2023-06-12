@@ -14,7 +14,7 @@ export default function App() {
           <Routes>
             <Route path="/home" element={<Home/>} />
             <Route path="/Perfomances" element="" />
-            <Route path='/Datachart/:table' element={<Chart_Diplay/>}/>
+            <Route path='/Datachart/:type' element={<Chart_Diplay/>}/>
           </Routes>
         </div>
       
