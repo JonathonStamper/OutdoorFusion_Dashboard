@@ -38,9 +38,19 @@ def get_type_data():
     return jsonify(payload)
 
 @app.route('/api/OutdoorFusion_Product_Year/Data', methods=["GET"])
-def get_type_data():
+def get_type_data_Year():
     type_name = request.args.get('type')
     Product_Type_Data = getData("select * from Fusion_Product_Year where Product_Type like '" +type_name+ "'")
+
+    rows = Product_Type_Data.to_dict(orient='records')
+    payload = {'rows': rows}
+
+    return jsonify(payload)
+
+@app.route('/api/OutdoorFusion_Product_Customer/Data', methods=["GET"])
+def get_type_data_Customer():
+    type_name = request.args.get('type')
+    Product_Type_Data = getData("select * from Fusion_Customers where Product_Type like '" +type_name+ "'")
 
     rows = Product_Type_Data.to_dict(orient='records')
     payload = {'rows': rows}
@@ -100,14 +110,15 @@ def get_bikesales():
     return jsonify(payload)
 
 # Get machine learning predictions
-@app.route('/api/OutdoorFusion/MachineLearning', methods=['POST'])
+@app.route('/api/OutdoorFusion/MachineLearning/Regression', methods=['POST'])
 def perform_regression():
     data = request.get_json()
-    table_name = data.get('table')
+    type_name = data.get('type')
     y_variable = data.get('y_variable')
+    table_Name = data.get('table_Name')
 
     # Fetch the data from the database based on the table_name parameter
-    Table_df = getData("SELECT * FROM dbo." + table_name)
+    Table_df = getData("SELECT * FROM " + table_Name + " where Product_Type like '" +type_name+ "'")
 
     # Select all columns except the y_variable as X
     x_columns = [col for col in Table_df.columns if col != y_variable]
